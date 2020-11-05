@@ -26,7 +26,9 @@
             "purpose": "maskable"
         }
     ],
-    "background_color": "red",
-    "theme_color": "#",
-    "start_url": "https://cocky-booth-589f53.netlify.app/"
+    "background_color": "#000",
+    "theme_color": "#FF0000",
+    "start_url": "/",
+    "scope": "/",
+    "orientation": "portrait"
 }
