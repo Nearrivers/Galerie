@@ -1,4 +1,4 @@
-import images from './../img/images.json'
+const images = require('../img/images.json')
 
 let cardRow = $('.card-group')
 let cards = ' '
