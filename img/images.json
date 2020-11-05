@@ -1,14 +1,14 @@
 [
     {
-        "chemin" : "./man-5419522_340.webp",
+        "chemin" : "../img/icons/man-5419522_340.webp",
         "alt" : "voiture"
     },
     {
-        "chemin": "./social-media-5187243_1280.webp",
+        "chemin": "../img/icons/social-media-5187243_1280.webp",
         "alt": "réseaux sociaux"
     },
     {
-        "chemin": "./space-4888643_340.webp",
+        "chemin": "../img/icons/space-4888643_340.webp",
         "alt" : "espace"
     }
 ]
