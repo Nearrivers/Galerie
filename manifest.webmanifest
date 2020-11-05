@@ -33,5 +33,6 @@
             "src": "img/icons/camera-svgrepo-com.svg",
             "sizes": "512x512"
         }
-    ]
+    ],
+    "start_url": ""
 }
