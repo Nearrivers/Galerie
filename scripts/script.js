@@ -1,5 +1,5 @@
 let cardRow = $('.card-group')
-let cards = ' '
+let cards = ' ' 
 
 function afficher(items) {
     for(let item of items) {
