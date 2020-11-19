@@ -25,26 +25,11 @@ function afficher(items) {
     }
 }
 
-// Regarde si le navigateur supporte les services workers
-if ('serviceWorker' in navigator) {
-    // Attend que la fenêtre soit chargée
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js')
-      .then(() => {
-          console.log('Service worker lancé');
-      })
-      .catch((e) => {
-          console.error(e);
-      })
-    });
-} else {
-    console.warn('Les services workers ne sont pas supportés');
-}
-
 if ('cache' in window) {
   caches.open(CACHE_NAME)
   .then((cache) => {
     cache.add(urlsToCache)
+    console.log(cache);
   })
   .catch((e) => {
     console.log(e);

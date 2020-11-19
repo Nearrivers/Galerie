@@ -19,6 +19,23 @@
             <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
         </div>
         <script src="./scripts/script.js"></script>
+        <script>
+            // Regarde si le navigateur supporte les services workers
+            if ('serviceWorker' in navigator) {
+                // Attend que la fenêtre soit chargée
+                window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                .then(() => {
+                    console.log('Service worker lancé');
+                })
+                .catch((e) => {
+                    console.error(e);
+                })
+                });
+            } else {
+                console.warn('Les services workers ne sont pas supportés');
+            }
+        </script>
         <script asyncsrc="https://cdn.jsdelivr.net/npm/pwacompat@2.0.9/pwacompat.min.js" integrity="sha384-VcI6S+HIsE80FVM1jgbd6WDFhzKYA0PecD/LcIyMQpT4fMJdijBh0I7Iblaacawc" crossorigin="anonymous"></script>
     </body>
 </html>

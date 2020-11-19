@@ -41,7 +41,7 @@ self.addEventListener('fetch', function(event) {
 self.addEventListener('fetch', (event) => {
   const url = event.request.url
 
-  if (url.indexOf("https://raw.githubusercontent.com/Nearrivers/Galerie/master/img/images.json") === 0) {
+  if (url.indexOf("https://5fb65118a64142c7701c2657--cocky-booth-589f53.netlify.app/") === 0) {
     event.respondWith(
       fetch(event.request)
       .then((response) => {
