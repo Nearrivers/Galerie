@@ -56,18 +56,28 @@ self.addEventListener('fetch', (event) => {
         })
       })
     )
+  } else {
+    event.respondWith(
+      caches
+        .open(CACHE_NAME)
+        .then(cache => cache.match(event.request))
+          .then(response => response || fetch(url))
+    )
   }
 })
 
-// Permet de savoir que la phase d'activation du service worker est terminée
+// Suppression des anciennes entrées en cache durant l'évènement activate du service-worker
 self.addEventListener('activate', function(event) {
   event.waitUntil(
-    Promise.resolve(`Phase d'activation terminée`)
-    .then(() => {
-      new Response(event)
-    })
-    .catch((err) => {
-      new Response(err)
+    caches.keys()
+    .then(function(keyList) {
+      return Promise.all(
+        keyList.map(function(key) {
+          if (key !== CACHE_NAME) {
+            caches.delete(key)
+          }
+        })
+      )
     })
   )
 })
