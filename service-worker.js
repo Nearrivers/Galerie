@@ -1,5 +1,5 @@
 // import des variables de cache depuis le script.js
-// import * as cacheInfos from './scripts/script'
+import * as cacheInfos from './scripts/script'
 
 // Permet de déterminer quand la phase d'installation est terminée
 self.addEventListener('install', function(event) {
@@ -59,9 +59,11 @@ self.addEventListener('fetch', (event) => {
   } else {
     event.respondWith(
       caches
-        .open(CACHE_NAME)
+        .open(cacheInfos.CACHE_NAME)
         .then(cache => cache.match(event.request))
           .then(response => response || fetch(url))
+          .catch(e => console.log(e))
+        .catch(e => console.log(e))
     )
   }
 })
@@ -73,7 +75,7 @@ self.addEventListener('activate', function(event) {
     .then(function(keyList) {
       return Promise.all(
         keyList.map(function(key) {
-          if (key !== CACHE_NAME) {
+          if (key !== cacheInfos.CACHE_NAME) {
             caches.delete(key)
           }
         })

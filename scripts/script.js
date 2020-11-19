@@ -68,5 +68,5 @@ fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/img/images.js
     console.log(err);
 })
 
-// exports.CACHE_NAME = CACHE_NAME
-// exports.urlsToCache = urlsToCache
+exports.CACHE_NAME = CACHE_NAME
+exports.urlsToCache = urlsToCache
