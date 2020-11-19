@@ -28,11 +28,11 @@
                 // Attend que la fenêtre soit chargée
                 window.addEventListener('load', () => {
                     navigator.serviceWorker.register('/service-worker.js')
-                    .then(() => {
-                        console.log('Service worker lancé');
+                    .then((registration) => {
+                        console.log('Service worker lancé dans le scope : ', registration.scope);
                     })
                     .catch((e) => {
-                        console.error(e);
+                        console.error("Erreur dans l'enregistrement du service worker : ", e);
                     })
                 });
             } else {

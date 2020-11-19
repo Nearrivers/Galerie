@@ -30,7 +30,9 @@ function afficher(items) {
     }
 }
 
-if ('indexDB' in window) {
+if (!window.indexedDB) {
+    console.log("IndexDb n'est pas là");
+} else {    
     console.log('IndexDb est là');
     const bdd = window.indexedDB.open('infosGalerie', 1)
     bdd.onupgradeneeded((function(event) {
@@ -40,11 +42,13 @@ if ('indexDB' in window) {
             upgradeBdd.creteObjectStore('infosGalerie')
         }
     }))
-} else {
-    console.log("IndexDb n'est pas là");
 }
 
-if ('cache' in window) {
+if (!window.indexedDB) {
+    window.alert("Votre navigateur ne supporte pas une version stable d'IndexedDB. Quelques fonctionnalités ne seront pas disponibles.")
+}
+
+if ('caches' in window) {
     caches.open(CACHE_NAME)
     .then((cache) => {
       cache.addAll(urlsToCache)
