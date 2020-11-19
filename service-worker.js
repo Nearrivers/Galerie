@@ -19,18 +19,18 @@ self.addEventListener('install', function(event) {
   );
 });
 
-// A la fin de la phase d'installation on retourne les urls ajoutées au cache
-self.addEventListener('install', function(event) {
-  event.waitUntil(
-    caches.open(cacheInfos.CACHE_NAME)
-    .then((cache) => {
-      return cache.add(cacheInfos.urlsToCache)
-    })
-    .catch((e) => {
-      console.log("Problème d'ouverture du cache", e);
-    })
-  )
-})
+// // Autre moyen d'ouvrir le cache, il faudra aussi exporter les variables depuis script.js
+// self.addEventListener('install', function(event) {
+//   event.waitUntil(
+//     caches.open(cacheInfos.CACHE_NAME)
+//     .then((cache) => {
+//       return cache.add(cacheInfos.urlsToCache)
+//     })
+//     .catch((e) => {
+//       console.log("Problème d'ouverture du cache", e);
+//     })
+//   )
+// })
 
 // Log l'url de la requête fetch
 self.addEventListener('fetch', function(event) {
