@@ -1,5 +1,5 @@
-export const CACHE_NAME = 'Galerie-PWA-app-cache';
-export const urlsToCache = [
+const CACHE_NAME = 'Galerie-PWA-app-cache';
+const urlsToCache = [
   '/',
   '/styles.css',
   '/scripts/script.js'
@@ -61,3 +61,6 @@ fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/img/images.js
 .catch((err) => {
     console.log(err);
 })
+
+exports.CACHE_NAME = CACHE_NAME
+exports.urlsToCache = urlsToCache
