@@ -35,13 +35,13 @@ if (!window.indexedDB) {
 } else {    
     console.log('IndexDb est là');
     const bdd = window.indexedDB.open('infosGalerie', 1)
-    bdd.onupgradeneeded((function(event) {
+    bdd.onupgradeneeded = function(event) {
         const upgradeBdd = event.target.result
 
         if (!upgradeBdd.objectStoreNames.contains('infosGalerie')) {
             upgradeBdd.creteObjectStore('infosGalerie')
         }
-    }))
+    }
 }
 
 if (!window.indexedDB) {
