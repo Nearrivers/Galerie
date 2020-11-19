@@ -18,6 +18,38 @@ function afficher(items) {
     }
 }
 
+// Regarde si le navigateur supporte les services workers
+if ('serviceWorker' in navigator) {
+    // Attend que la fenêtre soit chargée
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+      .then(() => {
+          console.log('Service worker lancé');
+      })
+      .catch((e) => {
+          console.error(e);
+      })
+    });
+} else {
+    console.warn('Les services workers ne sont pas supportés');
+}
+
+export const CACHE_NAME = 'Galerie-PWA-app-cache';
+export const urlsToCache = [
+  '/',
+  '/styles.css',
+  '/scripts/script.js'
+];
+
+if ('cache' in window) {
+  caches.open(CACHE_NAME)
+  .then((cache) => {
+    cache.add(urlsToCache)
+  })
+  .catch((e) => {
+    console.log(e);
+  })
+}
 fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/img/images.json')
 .then((response) => {
     return response.json()

@@ -1,67 +1,79 @@
-console.log("Bonjour depuis service-worker.js");
+// import des variables de cache depuis le script.js
+import * as cacheInfos from './scripts/script'
 
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+// détection du passage hors-ligne
+window.addEventListener('offline', function(event) {
+  alert('Vous êtes maintenant hors-ligne !')
+})
 
-if (workbox) {
-  console.log(`Yay! Workbox is loaded 🎉`);
-} else {
-  console.log(`Boo! Workbox didn't load 😬`);
-}
-
-var CACHE_NAME = 'Galerie-PWA-app-cache';
-var urlsToCache = [
-  '/',
-  '/styles.css',
-  '/scripts/script.js'
-];
-
+// Permet de déterminer quand la phase d'installation est terminée
 self.addEventListener('install', function(event) {
   // Perform install steps
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(function(cache) {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    Promise.resolve(`Phase d'installation terminée`)
+    .then(() => {
+      new Response(event)
+    })
+    .catch((err) => {
+      new Response(err)
+    })
   );
 });
 
+// A la fin de la phase d'installation on retourne les urls ajoutées au cache
+self.addEventListener('install', function(event) {
+  event.waitUntil(
+    caches.open(cacheInfos.CACHE_NAME)
+    .then((cache) => {
+      return cache.add(cacheInfos.urlsToCache)
+    })
+    .catch((e) => {
+      console.log("Problème d'ouverture du cache", e);
+    })
+  )
+})
+
+// Log l'url de la requête fetch
 self.addEventListener('fetch', function(event) {
+    console.log(event.request.url);
+});
+
+// Permet de récupérer l'url de la requête fetch et de formatter les données reçues dans le format souhaité
+self.addEventListener('fetch', (event) => {
+  const url = event.request.url
+
+  if (url.indexOf("https://raw.githubusercontent.com/Nearrivers/Galerie/master/img/images.json") === 0) {
     event.respondWith(
-      caches.match(event.request)
-        .then(function(response) {
-          // Cache hit - return response
-          if (response) {
-            return response;
-          }
-  
-          return fetch(event.request).then(
-            function(response) {
-              // Check if we received a valid response
-              if(!response || response.status !== 200 || response.type !== 'basic') {
-                return response;
-              }
-  
-              // IMPORTANT: Clone the response. A response is a stream
-              // and because we want the browser to consume the response
-              // as well as the cache consuming the response, we need
-              // to clone it so we have two streams.
-              var responseToCache = response.clone();
-  
-              caches.open(CACHE_NAME)
-                .then(function(cache) {
-                  cache.put(event.request, responseToCache);
-                });
-  
-              return response;
-            }
-          );
+      fetch(event.request)
+      .then((response) => {
+        if (response.statusText !== "OK") {
+          console.error("Service worker", "Erreur lors du 'fetch'", event.request.url);
+          return response
+        }
+        console.info("Formattage des données")
+
+        return response.json().then((json) => {
+          const formattedResponse = json.map((j) => ({
+            chemin: j.chemin,
+            alt: j.alt,
+            updated_at: j.updated_at,
+          }));
+          return new Response(JSON.stringify(formattedResponse))
         })
-        .catch((err) => {
-          console.log(err)
-        })
-      );
-  });
+      })
+    )
+  }
+})
+
+// Permet de savoir que la phase d'activation du service worker est terminée
+self.addEventListener('activate', function(event) {
+  event.waitUntil(
+    Promise.resolve(`Phase d'activation terminée`)
+    .then(() => {
+      new Response(event)
+    })
+    .catch((err) => {
+      new Response(err)
+    })
+  )
+})
