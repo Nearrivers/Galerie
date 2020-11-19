@@ -8,7 +8,6 @@ window.addEventListener('offline', function(event) {
 
 // Permet de déterminer quand la phase d'installation est terminée
 self.addEventListener('install', function(event) {
-  // Perform install steps
   event.waitUntil(
     Promise.resolve(`Phase d'installation terminée`)
     .then(() => {

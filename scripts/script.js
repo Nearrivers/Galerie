@@ -1,3 +1,10 @@
+export const CACHE_NAME = 'Galerie-PWA-app-cache';
+export const urlsToCache = [
+  '/',
+  '/styles.css',
+  '/scripts/script.js'
+];
+
 let cardRow = $('.card-group')
 let cards = ' ' 
 
@@ -34,13 +41,6 @@ if ('serviceWorker' in navigator) {
     console.warn('Les services workers ne sont pas supportés');
 }
 
-export const CACHE_NAME = 'Galerie-PWA-app-cache';
-export const urlsToCache = [
-  '/',
-  '/styles.css',
-  '/scripts/script.js'
-];
-
 if ('cache' in window) {
   caches.open(CACHE_NAME)
   .then((cache) => {
@@ -50,6 +50,7 @@ if ('cache' in window) {
     console.log(e);
   })
 }
+
 fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/img/images.json')
 .then((response) => {
     return response.json()
