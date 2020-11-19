@@ -39,7 +39,7 @@ if (!window.indexedDB) {
         const upgradeBdd = event.target.result
 
         if (!upgradeBdd.objectStoreNames.contains('infosGalerie')) {
-            upgradeBdd.creteObjectStore('infosGalerie')
+            upgradeBdd.createObjectStore('infosGalerie')
         }
     }
 }
