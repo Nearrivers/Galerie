@@ -34,6 +34,19 @@
                 'https://cdnjs.cloudflare.com/ajax/libs/localforage/1.7.3/localforage.min.js'
             ]
 
+            if ('caches' in window) {
+                caches.open(CACHE_NAME)
+                .then((cache) => {
+                    cache.addAll(urlsToCache)
+                    console.log(cache);
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
+            } else {
+                console.log("Pas de cache détecté");
+            }
+
             // Regarde si le navigateur supporte les services workers
             if ('serviceWorker' in navigator) {
                 // Attend que la fenêtre soit chargée
@@ -58,7 +71,7 @@
             window.addEventListener('online', () => {
                 alert('Vous êtes maintenant en ligne !')
             })
-            
+
         </script>
         <script asyncsrc="https://cdn.jsdelivr.net/npm/pwacompat@2.0.9/pwacompat.min.js" integrity="sha384-VcI6S+HIsE80FVM1jgbd6WDFhzKYA0PecD/LcIyMQpT4fMJdijBh0I7Iblaacawc" crossorigin="anonymous"></script>
     </body>

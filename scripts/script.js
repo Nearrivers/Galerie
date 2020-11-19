@@ -36,19 +36,6 @@ if (!window.indexedDB) {
     window.alert("Votre navigateur ne supporte pas une version stable d'IndexedDB. Quelques fonctionnalités ne seront pas disponibles.")
 }
 
-if ('caches' in window) {
-    caches.open(CACHE_NAME)
-    .then((cache) => {
-      cache.addAll(urlsToCache)
-      console.log(cache);
-    })
-    .catch((e) => {
-      console.log(e);
-    })
-} else {
-    console.log("Pas de cache détecté");
-}
-
 fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/img/images.json')
 .then((response) => {
     return response.json()
@@ -59,6 +46,3 @@ fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/img/images.js
 .catch((err) => {
     console.log(err);
 })
-
-exports.CACHE_NAME = CACHE_NAME
-exports.urlsToCache = urlsToCache
