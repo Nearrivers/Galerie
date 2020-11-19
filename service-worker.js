@@ -58,7 +58,7 @@ self.addEventListener('fetch', (event) => {
   } else {
     event.respondWith(
       caches
-        .open(CACHE_NAME)
+        .open('Galerie-PWA-app-cache')
         .then(cache => cache.match(event.request))
           .then(response => response || fetch(url))
           .catch(e => console.log(e))
@@ -74,7 +74,7 @@ self.addEventListener('activate', function(event) {
     .then(function(keyList) {
       return Promise.all(
         keyList.map(function(key) {
-          if (key !== CACHE_NAME) {
+          if (key !== 'Galerie-PWA-app-cache') {
             caches.delete(key)
           }
         })
