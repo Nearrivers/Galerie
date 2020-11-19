@@ -1,15 +1,3 @@
-const CACHE_NAME = 'Galerie-PWA-app-cache';
-const urlsToCache = [
-    '/',
-    '/styles.css',
-    'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2',
-    '/scripts/script.js',
-    'https://code.jquery.com/jquery-3.5.1.slim.min.js',
-    'https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js',
-    'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/localforage/1.7.3/localforage.min.js'
-];
-
 let cardRow = $('.card-group')
 let cards = ' ' 
 
