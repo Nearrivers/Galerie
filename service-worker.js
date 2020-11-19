@@ -1,11 +1,6 @@
 // import des variables de cache depuis le script.js
 // import * as cacheInfos from './scripts/script'
 
-// détection du passage hors-ligne
-window.addEventListener('offline', function(event) {
-  alert('Vous êtes maintenant hors-ligne !')
-})
-
 // Permet de déterminer quand la phase d'installation est terminée
 self.addEventListener('install', function(event) {
   event.waitUntil(

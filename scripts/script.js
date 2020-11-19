@@ -26,15 +26,15 @@ function afficher(items) {
 }
 
 if ('cache' in window) {
-  caches.open(CACHE_NAME)
-  .then((cache) => {
-    cache.add(urlsToCache)
-    console.log(cache);
-  })
-  .catch((e) => {
-    console.log(e);
-  })
-}
+    caches.open(CACHE_NAME)
+    .then((cache) => {
+      cache.add(urlsToCache)
+      console.log(cache);
+    })
+    .catch((e) => {
+      console.log(e);
+    })
+  }
 
 fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/img/images.json')
 .then((response) => {

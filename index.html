@@ -24,17 +24,22 @@
             if ('serviceWorker' in navigator) {
                 // Attend que la fenêtre soit chargée
                 window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                .then(() => {
-                    console.log('Service worker lancé');
-                })
-                .catch((e) => {
-                    console.error(e);
-                })
+                    navigator.serviceWorker.register('/service-worker.js')
+                    .then(() => {
+                        console.log('Service worker lancé');
+                    })
+                    .catch((e) => {
+                        console.error(e);
+                    })
                 });
             } else {
                 console.warn('Les services workers ne sont pas supportés');
             }
+
+            // détection du passage hors-ligne
+            window.addEventListener('offline', function(event) {
+                alert('Vous êtes maintenant hors-ligne !')
+            })
         </script>
         <script asyncsrc="https://cdn.jsdelivr.net/npm/pwacompat@2.0.9/pwacompat.min.js" integrity="sha384-VcI6S+HIsE80FVM1jgbd6WDFhzKYA0PecD/LcIyMQpT4fMJdijBh0I7Iblaacawc" crossorigin="anonymous"></script>
     </body>
