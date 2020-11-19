@@ -1,5 +1,5 @@
 // import des variables de cache depuis le script.js
-import * as cacheInfos from './scripts/script'
+// import * as cacheInfos from './scripts/script'
 
 // détection du passage hors-ligne
 window.addEventListener('offline', function(event) {
