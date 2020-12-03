@@ -21,9 +21,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.static(__dirname + '/frontend/public'));
+app.use(express.static(__dirname + '/public'));
 
-app.use(require('./routes/homePage'));
+app.use(require('./homePage'));
 
 // app.listen(3000, () =>{
 //     console.log("Bienvenue sur http://localhost:3000");
