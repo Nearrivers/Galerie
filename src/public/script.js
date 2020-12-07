@@ -97,7 +97,21 @@ window.addEventListener('online', () => {
     setTimeout(() => $('.alert').hide(), 5000)
 });
 
-fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/src/public/img/images.json')
+// Paramètres requête fetch
+
+var myHeaders = new Headers({
+    'Access-Control-Allow-Origin':'*',
+    "Content-Type" : "application/json",
+})
+
+var myInit = {
+    method: 'GET',
+    headers: myHeaders,
+    mode: 'cors',
+    cache: 'default',
+};
+
+fetch('https://github.com/Nearrivers/Galerie/blob/master/src/public/img/images.json', myInit)
 .then((response) => {
     return response.json();
 }).then((res) => {
