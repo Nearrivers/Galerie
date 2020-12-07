@@ -1,5 +1,3 @@
-// import des variables de cache depuis le script.js
-
 // Permet de déterminer quand la phase d'installation est terminée
 self.addEventListener('install', function(event) {
   event.waitUntil(
@@ -13,6 +11,12 @@ self.addEventListener('install', function(event) {
   );
 });
 
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'synchroImages') {
+    event.waitUntil(synchroServeur())
+  }
+})
+
 // Log l'url de la requête fetch
 self.addEventListener('fetch', function(event) {
     console.log(event.request.url);
@@ -20,9 +24,10 @@ self.addEventListener('fetch', function(event) {
 
 // Permet de récupérer l'url de la requête fetch et de formatter les données reçues dans le format souhaité
 self.addEventListener('fetch', (event) => {
+  console.log('Bonjour')
   const url = event.request.url
 
-  if (url.indexOf("https://5fb65118a64142c7701c2657--cocky-booth-589f53.netlify.app/") === 0) {
+  if (url.indexOf("https://raw.githubusercontent.com/Nearrivers/Galerie/master/img/images.json") === 0) {
     event.respondWith(
       fetch(event.request)
       .then((response) => {
