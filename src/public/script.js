@@ -97,7 +97,7 @@ window.addEventListener('online', () => {
     setTimeout(() => $('.alert').hide(), 5000)
 });
 
-fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/img/images.json')
+fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/src/public/img/images.json')
 .then((response) => {
     return response.json();
 }).then((res) => {
