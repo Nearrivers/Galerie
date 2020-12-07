@@ -27,7 +27,7 @@ self.addEventListener('fetch', (event) => {
   console.log('Bonjour')
   const url = event.request.url
 
-  if (url.indexOf("https://raw.githubusercontent.com/Nearrivers/Galerie/master/img/images.json") === 0) {
+  if (url.indexOf("https://raw.githubusercontent.com/Nearrivers/Galerie/master/src/public/img/images.json") === 0) {
     event.respondWith(
       fetch(event.request)
       .then((response) => {
