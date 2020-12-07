@@ -111,7 +111,7 @@ var myInit = {
     cache: 'default',
 };
 
-fetch('https://github.com/Nearrivers/Galerie/blob/master/src/public/img/images.json', myInit)
+fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/src/public/img/images.json', myInit)
 .then((response) => {
     return response.json();
 }).then((res) => {
