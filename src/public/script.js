@@ -102,16 +102,9 @@ window.addEventListener('online', () => {
 var myHeaders = new Headers({
     'Access-Control-Allow-Origin':'*',
     "Content-Type" : "application/json",
-})
+});
 
-var myInit = {
-    method: 'GET',
-    headers: myHeaders,
-    mode: 'cors',
-    cache: 'default',
-};
-
-fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/src/public/img/images.json', myInit)
+fetch('https://raw.githubusercontent.com/Nearrivers/Galerie/master/src/public/img/images.json')
 .then((response) => {
     return response.json();
 }).then((res) => {
