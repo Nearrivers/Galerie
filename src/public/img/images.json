@@ -1,18 +1,18 @@
 [
     {
-        "chemin" : "./public/img/man-5419522__340.webp",
+        "chemin" : "./img/man-5419522__340.webp",
         "alt" : "Voiture",
         "created_at" : "05112020",
         "liked" : "N"
     },
     {
-        "chemin": "./public/img/social-media-5187243_1280.webp",
+        "chemin": "./img/social-media-5187243_1280.webp",
         "alt": "Réseaux sociaux",
         "created_at" : "07112020",
         "liked" : "N"
     },
     {
-        "chemin": "./public/img/space-4888643__340.webp",
+        "chemin": "./img/space-4888643__340.webp",
         "alt" : "Espace",
         "created_at" : "07112020",
         "liked" : "N"
