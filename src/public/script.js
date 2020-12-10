@@ -41,11 +41,35 @@ function afficher(items) {
                 + `<img src="${item.chemin}" class="card-img-top" alt="...">`
                 + '<div class="card-body">'
                     + `<h5 class="card-title">${item.alt}</h5>`
-                    + `<a id="${item.id}" class="btn btn-outline-primary like" onclick="ajout(${item.id})">J'aime</a>`
+                    + `<a id="${item.id}" class="btn btn-outline-primary" onclick="ajout(${item.id})">J'aime</a>`
                 + '</div>'
             + '</div>'
         +'</div>');
         cardRow.append(cards);
+
+        // Affichage des favoris au chargement de la page
+        localforage.getItem('favoris')
+        .then((result) => {
+            // Si mon localforage n'est pas vide
+            if (result != null) {
+                // On récupère le bouton qui vient d'être affiché dans cette itération de la boucle
+                let monBtn = $("#" + item.id)
+                // On parcourt le localforage
+                for (let i = 0; i < result.length; i++) {
+                    // Si un des éléments du tableau est égal à l'id de l'image sélectionnée
+                    if (result[i] == item.id) {
+                        // On fait savoir que l'image a déjà été ajoutée dans les favoris
+                        monBtn.removeClass('btn-outline-primary');
+                        monBtn.addClass('btn-primary');
+                        // On quitte la boucle
+                        return
+                    }
+                }
+            }
+        })
+        .catch((e) => {
+            console.log(e);
+        })
     }    
         // let transation = db.transaction('favoris', 'readwrite');
         // let objectStore = transation.objectStore('favoris');
@@ -67,25 +91,63 @@ function afficher(items) {
 }
 
 function ajout(key) {
-    console.log(key);
+    // On récupère le bouton sur lequel on a cliqué grâce à son id qu'on passe en paramètres
     let monBtn = $("#" + key);
-
+    // Booléen pour indiquer si on a bien trouvé l'id de l'image dans le local storage
+    let top_ok = false;
+    // On cherche dans la table favoris de localForage qui contient les id de mes images
     localforage.getItem('favoris')
+        // Si l'opération est un succès on passe le tableau de résultats
         .then((result) => {
-            if (result) {
-                console.log("Coucou toi " + result);
-                monBtn.removeClass('btn-primary');
-                monBtn.addClass('btn-btn-outline-primary');
-            } else {
-                localforage.setItem('favoris', key)
-                .then(() => {
-                    console.log("Ca à fonctionné plus vite qu'IndexedDB");
+            // On construit un array qui reçoit notre tableau de résultats
+            let array = [];            
+            // S'il n'est pas vide
+            if (result != null) {
+                array = result;
+                console.log("hello there", array.length);
+
+                // On parcourt le tableau de résultats
+                for (let i = 0; i < result.length; i++) {
+                    // Si un des éléments du tableau est égal à l'id de l'image sélectionnée
+                    if (result[i] == key) {
+                        // On retire l'élément de notre tableau intermédiaire
+                        array.splice(i, 1);
+                        // Et on le met dans le localforage
+                        localforage.setItem('favoris', array);
+                        // On change l'apparence du bouton pour montrer que l'image a été enlevée des favoris
+                        monBtn.removeClass('btn-primary');
+                        monBtn.addClass('btn-outline-primary');
+                        // On le crie sur tous les toits 
+                        console.log("Ca à fonctionné plus vite qu'IndexedDB");
+                        // On fait savoir à l'application qu'on a trouvé un élément 
+                        top_ok = true;
+                        // On quitte la boucle
+                        return
+                    }
+                }
+
+                // Si on a pas trouvé l'item dans le local storage cela veut dire qu'on ne l'a pas mit tout simplement
+                if (!top_ok) {
+                    // On met le nouvel id dans le tableau
+                    array.push(key);
+                    // Si le localforage est vide on se contente juste de rajouter l'id de l'image dans le localforage
+                    localforage.setItem('favoris', array);
+                    // On change l'apparence du bouton pour montrer que l'image a bien été ajoutée dans les favoris
                     monBtn.removeClass('btn-outline-primary');
                     monBtn.addClass('btn-primary');
-                })
-                .catch((e) => {
-                    console.log("En fait non : ", e);
-                })
+                    // Comme ça marche je me rappelle que je suis trop fort
+                    console.log("Je suis trop fort");
+                }
+
+            } else {
+                array.push(key);
+                // Si le localforage est vide on se contente juste de rajouter l'id de l'image dans le localforage
+                localforage.setItem('favoris', array);
+                // On change l'apparence du bouton pour montrer que l'image a bien été ajoutée dans les favoris
+                monBtn.removeClass('btn-outline-primary');
+                monBtn.addClass('btn-primary');
+                // Comme on est content encore une fois on le fait savoir
+                console.log("Je suis content");
             }
         })
         .catch((e) => {
